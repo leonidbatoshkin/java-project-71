@@ -44,8 +44,8 @@ class Differ implements Callable<Integer> {
             } else if (firstMap.get(key).equals(secondMap.get(key))) {
                 result += "    " + key + ": " + firstMap.get(key) + "\n";
             } else {
-                result += "  - " + key + ": " + firstMap.get(key) + "\n" +
-                        "  + " + key + ": " + secondMap.get(key) + "\n";
+                result += "  - " + key + ": " + firstMap.get(key) + "\n"
+                        + "  + " + key + ": " + secondMap.get(key) + "\n";
             }
         }
         result += "}";
@@ -56,11 +56,9 @@ class Differ implements Callable<Integer> {
     private String format = "stylish";
 
     @Parameters(description = "path to first file")
-    static
-    String filepath1;
+    static String filepath1;
     @Parameters(description = "path to second file")
-    static
-    String filepath2;
+    static String filepath2;
 
     @Override
     public Integer call() throws Exception {
