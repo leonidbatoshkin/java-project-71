@@ -20,20 +20,20 @@ import static java.nio.charset.StandardCharsets.UTF_8;
         description = "Compares two configuration files and shows a difference.")
 class Differ implements Callable<Integer> {
 
-    private static String getFile(String filepath) throws IOException {
+    static String getFile(String filepath) throws IOException {
         return Files.readString(Paths.get(filepath).toAbsolutePath().normalize(), UTF_8);
     }
 
-    public static Map<String, String> parse(String file) throws Exception {
+    static Map<String, String> parse(String file) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, new TypeReference<Map<String, String>>() {
         });
     }
 
-    private static String generate() throws Exception {
+    public static String generate(String path1, String path2) throws Exception {
         String result = "{\n";
-        Map<String, String> firstMap = parse(getFile(filepath1));
-        Map<String, String> secondMap = parse(getFile(filepath2));
+        Map<String, String> firstMap = parse(getFile(path1));
+        Map<String, String> secondMap = parse(getFile(path2));
         Set<String> keys = new TreeSet<>(firstMap.keySet());
         keys.addAll(secondMap.keySet());
         for (String key : keys) {
@@ -62,7 +62,7 @@ class Differ implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(generate());
+        System.out.println(generate(filepath1, filepath2));
         return 0;
     }
 }
