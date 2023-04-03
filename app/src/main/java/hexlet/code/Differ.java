@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -14,6 +12,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
+import static hexlet.code.Parser.parse;
+import static hexlet.code.Utils.checkFilesFormat;
+import static hexlet.code.Utils.getFileFormat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
@@ -24,17 +25,15 @@ class Differ implements Callable<Integer> {
         return Files.readString(Paths.get(filepath).toAbsolutePath().normalize(), UTF_8);
     }
 
-    static Map<String, String> parse(String file) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(file, new TypeReference<Map<String, String>>() {
-        });
-    }
-
     public static String generate(String path1, String path2) throws Exception {
-        String result = "{\n";
-        Map<String, String> firstMap = parse(getFile(path1));
-        Map<String, String> secondMap = parse(getFile(path2));
+        if (!checkFilesFormat(path1, path2)) {
+            throw new UnsupportedOperationException("Comparison of different formats of files OR not JSON or YAML "
+                    + "file formats isn't supported");
+        }
+        Map<String, String> firstMap = parse(getFile(path1), getFileFormat(path1));
+        Map<String, String> secondMap = parse(getFile(path2), getFileFormat(path2));
         Set<String> keys = new TreeSet<>(firstMap.keySet());
+        String result = "{\n";
         keys.addAll(secondMap.keySet());
         for (String key : keys) {
             if (!firstMap.containsKey(key)) {
