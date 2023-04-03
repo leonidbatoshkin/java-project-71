@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Map;
 
-import static hexlet.code.Differ.getFile;
+import static hexlet.code.Utils.getFile;
 import static hexlet.code.Parser.parse;
 import static hexlet.code.Differ.generate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +36,7 @@ class AppTest {
     void testParseJSON() throws Exception {
         var expected = Map.of("timeout", "50", "follow", "false", "host", "hexlet.io",
                 "proxy", "123.234.53.22");
-        var actual = parse(Differ.getFile(filepath.getAbsolutePath()), "json");
+        var actual = parse(Utils.getFile(filepath.getAbsolutePath()), "json");
         assertEquals(expected, actual);
     }
 
@@ -44,7 +44,7 @@ class AppTest {
     void testParseYAML() throws Exception {
         var expected = Map.of("timeout", "50", "follow", "false", "host", "hexlet.io",
                 "proxy", "123.234.53.22");
-        var actual = parse(Differ.getFile(filepath.getAbsolutePath()), "yml");
+        var actual = parse(Utils.getFile(filepath.getAbsolutePath()), "yml");
         assertEquals(expected, actual);
     }
 

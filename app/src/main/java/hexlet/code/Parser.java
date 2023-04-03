@@ -7,12 +7,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.Map;
 
 public class Parser {
-
-    static ObjectMapper jsonMapper = new ObjectMapper();
-    static ObjectMapper yamlMapper = new YAMLMapper();
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+    private static final ObjectMapper YAML_MAPPER = new YAMLMapper();
 
     static Map<String, String> parse(String file, String type) throws Exception {
-        var mapper = type.equalsIgnoreCase("yml") ? yamlMapper : jsonMapper;
+        var mapper = type.equalsIgnoreCase("yml") ? YAML_MAPPER : JSON_MAPPER;
         return mapper.readValue(file, new TypeReference<>() {
         });
     }
