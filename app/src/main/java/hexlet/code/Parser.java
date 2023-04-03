@@ -10,7 +10,7 @@ public class Parser {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     private static final ObjectMapper YAML_MAPPER = new YAMLMapper();
 
-    static Map<String, String> parse(String file, String type) throws Exception {
+    static Map<String, Object> parse(String file, String type) throws Exception {
         var mapper = type.equalsIgnoreCase("yml") ? YAML_MAPPER : JSON_MAPPER;
         return mapper.readValue(file, new TypeReference<>() {
         });

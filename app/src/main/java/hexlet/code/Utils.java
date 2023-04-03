@@ -21,4 +21,8 @@ public class Utils {
     static String getFile(String filepath) throws IOException {
         return Files.readString(Paths.get(filepath).toAbsolutePath().normalize(), UTF_8);
     }
+
+    static String mapToString(Object obj) {
+        return obj != null ? obj.toString() : "null";
+    }
 }
