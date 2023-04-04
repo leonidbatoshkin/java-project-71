@@ -28,7 +28,31 @@ public class Differ implements Callable<Integer> {
         Map<String, Object> firstMap = convertNullValuesToString(parse(getFile(path1), getFileFormat(path1)));
         Map<String, Object> secondMap = convertNullValuesToString(parse(getFile(path2), getFileFormat(path2)));
         LinkedHashMap<String, List<Object>> dict = new LinkedHashMap<>();
-        Formatter formatter = new Formatter(formatName.equals("") ? "stylish" : formatName);
+        Formatter formatter = new Formatter(formatName);
+        Set<String> keys = new TreeSet<>(firstMap.keySet());
+        keys.addAll(secondMap.keySet());
+        for (String key : keys) {
+            if (!firstMap.containsKey(key)) {
+                dict.put(key, List.of("added", secondMap.get(key)));
+            } else if (!secondMap.containsKey(key)) {
+                dict.put(key, List.of("deleted", firstMap.get(key)));
+            } else if (firstMap.get(key).equals(secondMap.get(key))) {
+                dict.put(key, List.of("unchanged", firstMap.get(key)));
+            } else {
+                dict.put(key, List.of("changed", firstMap.get(key), secondMap.get(key)));
+            }
+        }
+        return formatter.getRepresentation(dict);
+    }
+
+    public static String generate(String path1, String path2) throws Exception {
+        if (!checkFilesFormat(path1, path2)) {
+            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
+        }
+        Map<String, Object> firstMap = convertNullValuesToString(parse(getFile(path1), getFileFormat(path1)));
+        Map<String, Object> secondMap = convertNullValuesToString(parse(getFile(path2), getFileFormat(path2)));
+        LinkedHashMap<String, List<Object>> dict = new LinkedHashMap<>();
+        Formatter formatter = new Formatter("stylish");
         Set<String> keys = new TreeSet<>(firstMap.keySet());
         keys.addAll(secondMap.keySet());
         for (String key : keys) {

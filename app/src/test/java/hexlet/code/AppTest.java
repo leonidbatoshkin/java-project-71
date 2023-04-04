@@ -73,7 +73,7 @@ class AppTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        var actual = generate(filepath1, filepath2, "");
+        var actual = generate(filepath1, filepath2);
         assertEquals(expected, actual);
     }
 
@@ -106,7 +106,7 @@ class AppTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        var actual = generate(filepath1, filepath2, "");
+        var actual = generate(filepath1, filepath2);
         assertEquals(expected, actual);
     }
 
