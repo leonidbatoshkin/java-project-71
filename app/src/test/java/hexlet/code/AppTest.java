@@ -130,4 +130,14 @@ class AppTest {
         var actual = generate(filepath1, filepath2, "plain");
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testJSONFormat() throws Exception {
+        String filepath1 = "src/test/resources/file1.json";
+        String filepath2 = "src/test/resources/file2.json";
+        var expected = "{\"follow\":[\"deleted\",false],\"host\":[\"unchanged\",\"hexlet.io\"],\"proxy\":[\"deleted\","
+                + "\"123.234.53.22\"],\"timeout\":[\"changed\",50,20],\"verbose\":[\"added\",true]}";
+        var actual = generate(filepath1, filepath2, "json");
+        assertEquals(expected, actual);
+    }
 }
