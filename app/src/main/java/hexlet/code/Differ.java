@@ -22,9 +22,6 @@ import static hexlet.code.Utils.convertNullValuesToString;
         description = "Compares two configuration files and shows a difference.")
 public final class Differ implements Callable<Integer> {
     public static String generate(String path1, String path2, String formatName) throws Exception {
-        if (!checkFilesFormat(path1, path2)) {
-            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
-        }
         Map<String, Object> firstMap = convertNullValuesToString(parse(getFile(path1), getFileFormat(path1)));
         Map<String, Object> secondMap = convertNullValuesToString(parse(getFile(path2), getFileFormat(path2)));
         LinkedHashMap<String, List<Object>> dict = new LinkedHashMap<>();
@@ -46,9 +43,6 @@ public final class Differ implements Callable<Integer> {
     }
 
     public static String generate(String path1, String path2) throws Exception {
-        if (!checkFilesFormat(path1, path2)) {
-            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
-        }
         Map<String, Object> firstMap = convertNullValuesToString(parse(getFile(path1), getFileFormat(path1)));
         Map<String, Object> secondMap = convertNullValuesToString(parse(getFile(path2), getFileFormat(path2)));
         LinkedHashMap<String, List<Object>> dict = new LinkedHashMap<>();
@@ -79,6 +73,9 @@ public final class Differ implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        if (!checkFilesFormat(filepath1, filepath2)) {
+            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
+        }
         System.out.println(generate(filepath1, filepath2, format));
         return 0;
     }
