@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.LinkedHashMap;
 
-public class JSONFormatter {
+public final class JSONFormatter {
     private final StringBuilder resultString;
     private final LinkedHashMap<String, List<Object>> lines;
 

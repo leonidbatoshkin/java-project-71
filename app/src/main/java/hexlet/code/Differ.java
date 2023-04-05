@@ -20,7 +20,7 @@ import static hexlet.code.Utils.convertNullValuesToString;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
-public class Differ implements Callable<Integer> {
+public final class Differ implements Callable<Integer> {
     public static String generate(String path1, String path2, String formatName) throws Exception {
         if (!checkFilesFormat(path1, path2)) {
             throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");

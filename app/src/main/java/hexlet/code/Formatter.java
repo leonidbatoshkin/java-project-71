@@ -8,7 +8,7 @@ import hexlet.code.formatters.PlainFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Formatter {
+public final class Formatter {
     private final String format;
 
     public Formatter(String format) {

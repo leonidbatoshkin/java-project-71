@@ -29,7 +29,7 @@ class AppTest {
     @Test
     void testParseJSON() throws Exception {
         var filepath = new File("src/test/resources/file1.json");
-        var expected = Map.of("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22",
+        var expected = Map.of("host", "hexlet.io", "timeout", Integer.parseInt("50"), "proxy", "123.234.53.22",
                 "follow", false);
         var actual = parse(Utils.getFile(filepath.getAbsolutePath()), "json");
         assertEquals(expected, actual);
@@ -38,7 +38,7 @@ class AppTest {
     @Test
     void testParseYAML() throws Exception {
         var filepath = new File("src/test/resources/yaml1.yml");
-        var expected = Map.of("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22",
+        var expected = Map.of("host", "hexlet.io", "timeout", Integer.parseInt("50"), "proxy", "123.234.53.22",
                 "follow", false);
         var actual = parse(Utils.getFile(filepath.getAbsolutePath()), "yml");
         assertEquals(expected, actual);

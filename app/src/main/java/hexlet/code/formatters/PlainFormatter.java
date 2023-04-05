@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static hexlet.code.Utils.processComplexType;
 
-public class PlainFormatter {
+public final class PlainFormatter {
     private static final int OPERATION_POSITION = 0;
     private static final int VALUE_POSITION = 1;
     private static final int CHANGED_VALUE_POSITION = 2;

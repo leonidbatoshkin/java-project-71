@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class StylishFormatter {
+public final class StylishFormatter {
     private static final int OPERATION_POSITION = 0;
     private static final int VALUE_POSITION = 1;
     private static final int CHANGED_VALUE_POSITION = 2;
