@@ -5,21 +5,17 @@ import hexlet.code.formatters.StylishFormatter;
 import hexlet.code.formatters.JSONFormatter;
 import hexlet.code.formatters.PlainFormatter;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class Formatter {
-    private final String format;
 
-    public Formatter(String format) {
-        this.format = format;
-    }
-
-    String getRepresentation(LinkedHashMap<String, List<Object>> lines) throws JsonProcessingException {
+    public static String getRepresentation(Map<String, List<Object>> lines, String format)
+            throws JsonProcessingException {
         return switch (format) {
-            case "stylish" -> new StylishFormatter(lines).getRepresentation();
-            case "plain" -> new PlainFormatter(lines).getRepresentation();
-            case "json" -> new JSONFormatter(lines).getRepresentation();
+            case "stylish" -> StylishFormatter.getRepresentation(lines);
+            case "plain" -> PlainFormatter.getRepresentation(lines);
+            case "json" -> JSONFormatter.getRepresentation(lines);
             default -> throw new UnsupportedOperationException("This format is not supported");
         };
     }

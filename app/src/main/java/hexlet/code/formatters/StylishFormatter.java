@@ -1,44 +1,31 @@
 package hexlet.code.formatters;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public final class StylishFormatter {
     private static final int OPERATION_POSITION = 0;
     private static final int VALUE_POSITION = 1;
     private static final int CHANGED_VALUE_POSITION = 2;
-    private final StringBuilder resultString;
-    private final LinkedHashMap<String, List<Object>> lines;
 
-    public StylishFormatter(LinkedHashMap<String, List<Object>> lines) {
-        this.resultString = new StringBuilder();
-        this.lines = lines;
-    }
-
-    public void setResultString(String line) {
-        this.resultString.append(line);
-    }
-
-    public String getRepresentation() {
-        setResultString("{\n");
-        Set<Map.Entry<String, List<Object>>> entries = lines.entrySet();
-        entries.forEach(entry -> {
-            var key = entry.getKey();
-            var value = entry.getValue();
-            if (value.get(OPERATION_POSITION).equals("added")) {
-                setResultString("  + " + key + ": " + value.get(VALUE_POSITION) + "\n");
-            } else if (value.get(OPERATION_POSITION).equals("deleted")) {
-                setResultString("  - " + key + ": " + value.get(VALUE_POSITION) + "\n");
-            } else if (value.get(OPERATION_POSITION).equals("unchanged")) {
-                setResultString("    " + key + ": " + value.get(VALUE_POSITION) + "\n");
-            } else {
-                setResultString("  - " + key + ": " + value.get(VALUE_POSITION)
-                        + "\n  + " + key + ": " + value.get(CHANGED_VALUE_POSITION) + "\n");
+    public static String getRepresentation(Map<String, List<Object>> lines) {
+        StringBuilder resultString = new StringBuilder();
+        resultString.append("{\n");
+        lines.forEach((key, value) -> {
+            switch (String.valueOf(value.get(OPERATION_POSITION))) {
+                case "added" -> resultString.append("  + ").append(key).append(": ")
+                        .append(value.get(VALUE_POSITION)).append("\n");
+                case "deleted" -> resultString.append("  - ").append(key).append(": ")
+                        .append(value.get(VALUE_POSITION)).append("\n");
+                case "unchanged" -> resultString.append("    ").append(key).append(": ")
+                        .append(value.get(VALUE_POSITION)).append("\n");
+                case "changed" -> resultString.append("  - ").append(key).append(": ")
+                        .append(value.get(VALUE_POSITION)).append("\n  + ").append(key).append(": ").
+                        append(value.get(CHANGED_VALUE_POSITION)).append("\n");
+                default -> throw new RuntimeException("Couldn't make representation for this data");
             }
         });
-        setResultString("}");
+        resultString.append("}");
         return resultString.toString();
     }
 }
