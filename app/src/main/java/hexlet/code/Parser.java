@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Parser {
 
-    static Map<String, Object> parse(String file, String type) throws Exception {
+    public static Map<String, Object> parse(String file, String type) throws Exception {
         return switch (type) {
             case "json" -> new ObjectMapper().readValue(file, new TypeReference<>() {
             });

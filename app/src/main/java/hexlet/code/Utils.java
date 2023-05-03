@@ -9,9 +9,15 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Utils {
+
+    private static final List<String> TYPES = List.of("json", "yml");
+
     public static boolean checkFilesFormat(String pathToFirstFile, String pathToSecondFile) {
-        List<String> types = List.of("json", "yml");
-        return types.contains(getExtension(pathToFirstFile)) && types.contains(getExtension(pathToSecondFile));
+        return isTypeSupported(getExtension(pathToFirstFile)) && isTypeSupported(getExtension(pathToSecondFile));
+    }
+
+    public static boolean isTypeSupported(String extension) {
+        return TYPES.contains(extension);
     }
 
     public static String getExtension(String pathToFile) {
