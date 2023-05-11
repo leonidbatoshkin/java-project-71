@@ -13,7 +13,10 @@ public class Utils {
     private static final List<String> TYPES = List.of("json", "yml");
 
     public static boolean checkFilesFormat(String pathToFirstFile, String pathToSecondFile) {
-        return isTypeSupported(getExtension(pathToFirstFile)) && isTypeSupported(getExtension(pathToSecondFile));
+        if (!isTypeSupported(getExtension(pathToFirstFile)) && isTypeSupported(getExtension(pathToSecondFile))) {
+            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
+        }
+        return true;
     }
 
     public static boolean isTypeSupported(String extension) {
@@ -32,7 +35,9 @@ public class Utils {
     public static String processComplexType(Object obj) {
         if (obj instanceof String) {
             return "'" + obj + "'";
+        } else if (obj instanceof Map<?, ?> || obj instanceof List<?>) {
+            return "[complex value]";
         }
-        return obj instanceof Map<?, ?> || obj instanceof List<?> ? "[complex value]" : String.valueOf(obj);
+        return String.valueOf(obj);
     }
 }

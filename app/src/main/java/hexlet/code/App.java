@@ -9,6 +9,9 @@ import static hexlet.code.Utils.checkFilesFormat;
 @CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public final class App implements Callable<Integer> {
+    private static final int SUCCESS_CODE = 1;
+    private static final int ERROR_CODE = 0;
+
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
@@ -24,11 +27,13 @@ public final class App implements Callable<Integer> {
     private static String filepath2;
 
     @Override
-    public Integer call() throws Exception {
-        if (!checkFilesFormat(filepath1, filepath2)) {
-            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
+    public Integer call() {
+        try {
+            checkFilesFormat(filepath1, filepath2);
+            System.out.println(Differ.generate(filepath1, filepath2, format));
+        } catch (Exception e) {
+            return ERROR_CODE;
         }
-        System.out.println(Differ.generate(filepath1, filepath2, format));
-        return 0;
+        return SUCCESS_CODE;
     }
 }

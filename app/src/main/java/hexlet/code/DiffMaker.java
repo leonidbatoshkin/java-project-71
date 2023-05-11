@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,8 +19,7 @@ public class DiffMaker {
                 diff.put(key, Arrays.asList("added", secondEntity.get(key)));
             } else if (!secondEntity.containsKey(key)) {
                 diff.put(key, Arrays.asList("deleted", firstEntity.get(key)));
-            } else if (firstEntity.get(key) == null && secondEntity.get(key) != null
-                    || !firstEntity.get(key).equals(secondEntity.get(key))) {
+            } else if (!Objects.equals(firstEntity.get(key), secondEntity.get(key))) {
                 diff.put(key, Arrays.asList("changed", firstEntity.get(key), secondEntity.get(key)));
             } else {
                 diff.put(key, Arrays.asList("unchanged", firstEntity.get(key)));
