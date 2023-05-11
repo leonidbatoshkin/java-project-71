@@ -14,7 +14,7 @@ public class Utils {
 
     public static boolean checkFilesFormat(String pathToFirstFile, String pathToSecondFile) {
         if (!isTypeSupported(getExtension(pathToFirstFile)) && isTypeSupported(getExtension(pathToSecondFile))) {
-            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats is not supported");
+            throw new UnsupportedOperationException("Comparison of not JSON or YAML file formats isn't supported");
         }
         return true;
     }
