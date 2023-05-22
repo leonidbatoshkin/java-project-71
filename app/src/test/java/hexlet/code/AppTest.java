@@ -72,18 +72,24 @@ class AppTest {
 
     @Test
     void testParseJSON() throws Exception {
-        var expected = Map.of("host", "hexlet.io", "timeout", Integer.parseInt("50"),
-                "proxy", "123.234.53.22",
-                "follow", false);
+        var expected = Map.ofEntries(
+                Map.entry("host", "hexlet.io"),
+                Map.entry("timeout", Integer.parseInt("50")),
+                Map.entry("proxy", "123.234.53.22"),
+                Map.entry("follow", false)
+        );
         var actual = parse(jsonParseFile, "json");
         assertEquals(expected, actual);
     }
 
     @Test
     void testParseYAML() throws Exception {
-        var expected = Map.of("host", "hexlet.io", "timeout", Integer.parseInt("50"),
-                "proxy", "123.234.53.22",
-                "follow", false);
+        var expected = Map.ofEntries(
+                Map.entry("host", "hexlet.io"),
+                Map.entry("timeout", Integer.parseInt("50")),
+                Map.entry("proxy", "123.234.53.22"),
+                Map.entry("follow", false)
+        );
         var actual = parse(yamlParseFile, "yml");
         assertEquals(expected, actual);
     }
