@@ -4,7 +4,6 @@ import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Utils.checkFilesFormat;
 
 @CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
@@ -29,7 +28,6 @@ public final class App implements Callable<Integer> {
     @Override
     public Integer call() {
         try {
-            checkFilesFormat(filepath1, filepath2);
             System.out.println(Differ.generate(filepath1, filepath2, format));
         } catch (Exception e) {
             return ERROR_CODE;

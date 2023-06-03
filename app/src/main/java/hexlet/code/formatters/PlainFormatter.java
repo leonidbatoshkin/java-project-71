@@ -3,8 +3,6 @@ package hexlet.code.formatters;
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.Utils.processComplexType;
-
 public final class PlainFormatter {
     private static final int OPERATION_POSITION = 0;
     private static final int VALUE_POSITION = 1;
@@ -27,5 +25,14 @@ public final class PlainFormatter {
             }
         });
         return resultString.deleteCharAt(resultString.length() - 1).toString();
+    }
+
+    public static String processComplexType(Object obj) {
+        if (obj instanceof String) {
+            return "'" + obj + "'";
+        } else if (obj instanceof Map<?, ?> || obj instanceof List<?>) {
+            return "[complex value]";
+        }
+        return String.valueOf(obj);
     }
 }
